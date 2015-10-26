@@ -101,9 +101,9 @@ soup = BeautifulSoup(html, "lxml")
 title_divs = soup.find('div', attrs={'id': 'content'}).find_all('a')
 for title_div in title_divs:
     url = 'http://www.nhsbsa.nhs.uk'+title_div['href']
-    if '.xls' in url:
-        csvMth = title_div.previousSibling.split('[')[0].strip().split(' ')[0][:3].split('|')[0].strip()
-        csvYr = title_div.previousSibling.split('[')[0].strip().split(' ')[-1].split('|')[0].strip()[-4:]
+    if '.csv' in url:
+        csvMth = title_div.previousSibling.previousSibling.previousSibling.split('[')[0].strip().split(' ')[0][:3].split('|')[0].strip()
+        csvYr = title_div.previousSibling.previousSibling.previousSibling.split('[')[0].strip().split(' ')[-1].split('|')[0].strip()[-4:]
         csvMth = convert_mth_strings(csvMth.upper())
         data.append([csvYr, csvMth, url])
 
